@@ -1,0 +1,2 @@
+# vault-plugin
+Cloud Encryption
