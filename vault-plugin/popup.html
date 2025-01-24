@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Cloud Crypt</h1>
+
+  <!-- File selection area -->
+  <label for="fileInput">Select files:</label>
+  <input type="file" id="fileInput" multiple>
+  
+  <!-- Master password input -->
+  <label for="passwordInput">Set Master Password:</label>
+  <input type="password" id="passwordInput" placeholder="Enter Password">
+
+  <!-- Buttons for encryption and decryption -->
+  <div id="buttonGroup">
+    <button id="encryptBtn">Encrypt</button>
+    <button id="decryptBtn">Decrypt</button>
+  </div>
+
+  <!-- Status message -->
+  <p id="status"></p>
+
+  <!-- Scripts to handle encryption and decryption -->
+  <script src="crypto.js"></script>
+  <script src="popup.js"></script>
+
+  <!-- Include CryptoJS library in popup.html -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
+</body>
+</html>
