@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #F4A460, #A0522D);
+    background: linear-gradient(135deg, #03357c, #920fc5b7, #032d7c9e);
     margin: 0;
 }
 
@@ -61,15 +61,6 @@ h1 {
 
 input[type="file"] {
     display: none;
-}
-
-#fileList {
-    font-size: 12px;
-    margin-top: 8px;
-    opacity: 0.85;
-    padding: 5px;
-    max-height: 80px;
-    overflow-y: auto;
 }
 
 /* Password Input */
@@ -171,4 +162,65 @@ input[type="file"] {
     font-size: 12px;
     margin-top: 12px;
     opacity: 0.9;
+}
+
+/* Drag & Drop File Upload */
+#drop-area {
+    border: 2px dashed #ffff;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s;
+    margin: 20px 0;
+}
+
+#drop-area p {
+    font-size: 12px;
+    margin: 8px 0;
+}
+
+#drop-area .browse-btn {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#drop-area.drag-over {
+    border-color: #fff;
+}
+
+/* File List */
+#fileList {
+    font-size: 12px;
+    margin-top: 8px;
+    opacity: 0.85;
+    padding: 5px;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+#fileList li {
+    padding: 8px 12px;
+    margin: 4px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.225);
+    border-radius: 6px;
+}
+
+.remove-file {
+    background: rgba(247, 5, 5, 0);
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remove-file:hover {
+    background: rgb(249, 1, 1);
 }

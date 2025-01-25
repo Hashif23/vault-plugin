@@ -11,16 +11,17 @@
 
     <div class="container">
         <h1>🔐 Cloud Crypt</h1>
-        <p class="subheading">Securely encrypt & decrypt your files with ease.</p>
+        <p class="subheading">Securely encrypt & decrypt your files with ease </p>
 
-        <!-- File Upload -->
-        <div class="file-upload">
-            <label for="fileInput" class="file-label">
-                <i class="fas fa-upload"></i> Select Files
+        <!-- Combined File Upload and Drag & Drop -->
+        <div id="drop-area" class="file-upload">
+            <label for="fileInput" id="fileLabel" class="file-label">
+                <i class="fas fa-upload"></i> Select Files or Drag & Drop Here
             </label>
-            <input type="file" id="fileInput" multiple>
-            <div id="fileList">No files selected</div>
+            <input type="file" id="fileInput" multiple hidden>
         </div>
+
+        <ul id="fileList"></ul>
 
         <!-- Password Input with Show/Hide Toggle -->
         <div class="password-input">
@@ -44,6 +45,7 @@
 
     <script src="popup.js"></script>
     <script src="functions.js"></script>
+    <script src="drag.js"></script>
 
 </body>
 </html>
