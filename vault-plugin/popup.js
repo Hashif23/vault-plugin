@@ -72,7 +72,8 @@ document.getElementById("encryptBtn").addEventListener("click", async function (
     const reader = new FileReader();
 
     if (!password && selectedFiles.length === 0) {
-        document.getElementById("status").innerText = "⚠️ Please select a file and enter a password.";
+        //document.getElementById("status").innerText = "⚠️ Please select a file and enter a password.";
+        updateStatus("⚠️ Please select a file and enter a password.", "error");
         return;
     }
 
@@ -89,7 +90,7 @@ document.getElementById("encryptBtn").addEventListener("click", async function (
     for (let file of selectedFiles) {
         const encryptedBlob = await encryptFile(file, password);
         downloadFile(encryptedBlob, file.name + ".encrypted");
-        updateStatus(`File ${file.name} encrypted successfully! ✅`, "success");
+        updateStatus(`File [${file.name}] encrypted successfully! ✅`, "success");
     }
 });
 
@@ -99,7 +100,8 @@ document.getElementById("decryptBtn").addEventListener("click", async function (
     const reader = new FileReader();
 
     if (!password && selectedFiles.length === 0) {
-        document.getElementById("status").innerText = "⚠️ Please select an encrypted file and enter the password.";
+        //document.getElementById("status").innerText = "⚠️ Please select an encrypted file and enter the password.";
+        updateStatus("⚠️ Please select an encrypted file and enter the password.", "error");
         return;
     }
 
@@ -117,7 +119,7 @@ document.getElementById("decryptBtn").addEventListener("click", async function (
         for (let file of selectedFiles) {
             const decryptedBlob = await decryptFile(file, password);
             downloadFile(decryptedBlob, file.name.replace(".encrypted", ""));
-            updateStatus(`File ${file.name} decrypted successfully! ✅`, "success");
+            updateStatus(`File [${file.name}] decrypted successfully! ✅`, "success");
         }
     } catch (error) {
         updateStatus(`⚠️ Failed to decrypt ${file.name}: ${error.message}`, "error");
