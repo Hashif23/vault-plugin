@@ -1,54 +1,132 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  background-color: #f5f5f5;
+    background: linear-gradient(135deg, #2C3E50, #4CA1AF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
 }
 
 h1 {
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
-label {
-  font-size: 14px;
-  margin-top: 10px;
-  display: block;
+.subheading {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 20px;
 }
 
-input[type="file"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.file-upload {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
-#buttonGroup {
-  display: flex;
-  justify-content: space-between;
+.file-label {
+    display: block;
+    padding: 10px;
+    background: #3498DB;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
+.file-label:hover {
+    background: #2980B9;
 }
 
-button:hover {
-  background-color: #0056b3;
+#fileInput {
+    display: none;
+}
+
+#fileName {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.password-input {
+    margin-bottom: 15px;
+}
+
+.password-input label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.password-input input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    outline: none;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    font-size: 14px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.encrypt {
+    background: #2ECC71;
+    color: #fff;
+}
+
+.decrypt {
+    background: #E74C3C;
+    color: #fff;
+}
+
+.encrypt:hover {
+    background: #27AE60;
+}
+
+.decrypt:hover {
+    background: #C0392B;
 }
 
 #status {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #e63946;
-  text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: bold;
 }
