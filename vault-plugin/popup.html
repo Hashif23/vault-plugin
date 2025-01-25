@@ -3,29 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Crypt - File Encryption</title>
+    <title>Cloud Crypt - Secure File Encryption</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
 </head>
 <body>
 
     <div class="container">
         <h1>🔐 Cloud Crypt</h1>
-        <p class="subheading">Securely encrypt & decrypt your files</p>
+        <p class="subheading">Securely encrypt & decrypt your files with ease.</p>
 
+        <!-- File Upload -->
         <div class="file-upload">
             <label for="fileInput" class="file-label">
-                <i class="fas fa-file-upload"></i> Select Files
+                <i class="fas fa-upload"></i> Select Files
             </label>
             <input type="file" id="fileInput" multiple>
-            <p id="fileName">No file chosen</p>
+            <div id="fileList">No files selected</div>
         </div>
 
+        <!-- Password Input with Show/Hide Toggle -->
         <div class="password-input">
             <label for="passwordInput"><i class="fas fa-key"></i> Enter Password:</label>
-            <input type="password" id="passwordInput" placeholder="Enter a secure password">
+            <div class="password-box">
+                <input type="password" id="passwordInput" placeholder="Enter a secure password">
+                <span class="toggle-icon" onclick="togglePassword()">
+                    <i class="fas fa-eye" id="togglePasswordIcon"></i>
+                </span>
+            </div>
         </div>
 
+        <!-- Buttons -->
         <div class="button-group">
             <button id="encryptBtn" class="btn encrypt"><i class="fas fa-lock"></i> Encrypt</button>
             <button id="decryptBtn" class="btn decrypt"><i class="fas fa-unlock"></i> Decrypt</button>
@@ -34,13 +42,8 @@
         <p id="status"></p>
     </div>
 
-    <script src="crypto.js"></script>
     <script src="popup.js"></script>
-    <script>
-        document.getElementById('fileInput').addEventListener('change', function () {
-            let fileCount = this.files.length;
-            document.getElementById('fileName').innerText = fileCount ? fileCount + " file(s) selected" : "No file chosen";
-        });
-    </script>
+    <script src="functions.js"></script>
+
 </body>
 </html>
