@@ -65,6 +65,72 @@ async function decryptFile(encryptedFile, password) {
     }
 }
 
+// Password strength checking function
+function checkPasswordStrength(password) {
+    const strengthMeter = document.getElementById("passwordStrength");
+    const strengthText = document.getElementById("strengthText");
+
+    let strength = 0;
+
+    if (password.length >= 8) strength++; // Minimum 8 characters
+    if (/[A-Z]/.test(password)) strength++; // At least one uppercase letter
+    if (/[a-z]/.test(password)) strength++; // At least one lowercase letter
+    if (/\d/.test(password)) strength++; // At least one number
+    if (/[@$!%*?&]/.test(password)) strength++; // At least one special character
+
+    // Update UI based on password strength
+    if (strength === 0) {
+        strengthMeter.style.backgroundColor = "gray";
+        strengthText.innerText = "";
+    } else if (strength === 1 || strength === 2) {
+        strengthMeter.style.backgroundColor = "red";
+        strengthText.innerText = "Weak ❌";
+    } else if (strength === 3) {
+        strengthMeter.style.backgroundColor = "orange";
+        strengthText.innerText = "Medium ⚠️";
+    } else if (strength >= 4) {
+        strengthMeter.style.backgroundColor = "green";
+        strengthText.innerText = "Strong ✅";
+    }
+
+    strengthMeter.style.opacity = "1"; // Make strength indicator visible
+}
+// Password strength checking function
+function checkPasswordStrength(password) {
+    const strengthMeter = document.getElementById("passwordStrength");
+    const strengthText = document.getElementById("strengthText");
+
+    let strength = 0;
+
+    if (password.length >= 8) strength++; // Minimum 8 characters
+    if (/[A-Z]/.test(password)) strength++; // At least one uppercase letter
+    if (/[a-z]/.test(password)) strength++; // At least one lowercase letter
+    if (/\d/.test(password)) strength++; // At least one number
+    if (/[@$!%*?&]/.test(password)) strength++; // At least one special character
+
+    // Update UI based on password strength
+    if (strength === 0) {
+        strengthMeter.style.backgroundColor = "gray";
+        strengthText.innerText = "";
+    } else if (strength === 1 || strength === 2) {
+        strengthMeter.style.backgroundColor = "red";
+        strengthText.innerText = "Weak ❌";
+    } else if (strength === 3) {
+        strengthMeter.style.backgroundColor = "orange";
+        strengthText.innerText = "Medium ⚠️";
+    } else if (strength >= 4) {
+        strengthMeter.style.backgroundColor = "green";
+        strengthText.innerText = "Strong ✅";
+    }
+
+    strengthMeter.style.opacity = "1"; // Make strength indicator visible
+}
+
+// Attach event listener to password input field
+document.getElementById("passwordInput").addEventListener("input", function () {
+    checkPasswordStrength(this.value);
+});
+
 // Encrypt and download files
 document.getElementById("encryptBtn").addEventListener("click", async function () {
     const password = document.getElementById("passwordInput").value;

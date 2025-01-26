@@ -26,6 +26,10 @@
         <!-- Password Input with Show/Hide Toggle -->
         <div class="password-input">
             <label for="passwordInput"><i class="fas fa-key"></i> Enter Password:</label>
+            <div id="passwordStrengthContainer">
+                <div id="passwordStrength"></div>
+                <span id="strengthText"></span>
+            </div>
             <div class="password-box">
                 <input type="password" id="passwordInput" placeholder="Enter a secure password">
                 <span class="toggle-icon" onclick="togglePassword()">

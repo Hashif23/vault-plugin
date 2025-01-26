@@ -69,6 +69,25 @@ input[type="file"] {
     text-align: left;
 }
 
+#passwordStrengthContainer {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+#passwordStrength {
+    width: 80px;
+    height: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out;
+    margin-right: 8px;
+}
+
+#strengthText {
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .password-input label {
     font-size: 14px;
     opacity: 0.9;
