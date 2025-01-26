@@ -65,14 +65,11 @@ async function decryptFile(encryptedFile, password) {
     }
 }
 
-
 // Encrypt and download files
 document.getElementById("encryptBtn").addEventListener("click", async function () {
     const password = document.getElementById("passwordInput").value;
-    const reader = new FileReader();
 
     if (!password && selectedFiles.length === 0) {
-        //document.getElementById("status").innerText = "⚠️ Please select a file and enter a password.";
         updateStatus("⚠️ Please select a file and enter a password.", "error");
         return;
     }
@@ -92,15 +89,16 @@ document.getElementById("encryptBtn").addEventListener("click", async function (
         downloadFile(encryptedBlob, file.name + ".encrypted");
         updateStatus(`File [${file.name}] encrypted successfully! ✅`, "success");
     }
+
+    // Clear fields after encryption
+    clearFields();
 });
 
 // Decrypt and download files
 document.getElementById("decryptBtn").addEventListener("click", async function () {
     const password = document.getElementById("passwordInput").value;
-    const reader = new FileReader();
 
     if (!password && selectedFiles.length === 0) {
-        //document.getElementById("status").innerText = "⚠️ Please select an encrypted file and enter the password.";
         updateStatus("⚠️ Please select an encrypted file and enter the password.", "error");
         return;
     }
@@ -121,6 +119,9 @@ document.getElementById("decryptBtn").addEventListener("click", async function (
             downloadFile(decryptedBlob, file.name.replace(".encrypted", ""));
             updateStatus(`File [${file.name}] decrypted successfully! ✅`, "success");
         }
+
+        // Clear fields after decryption
+        clearFields();
     } catch (error) {
         updateStatus(`⚠️ Failed to decrypt ${file.name}: ${error.message}`, "error");
     }
@@ -142,4 +143,12 @@ function downloadFile(blob, fileName) {
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
+}
+
+// Clear selected files and password fields
+function clearFields() {
+    selectedFiles = [];
+    document.getElementById("fileList").innerHTML = "";
+    document.getElementById("passwordInput").value = "";
+    document.getElementById("status").textContent = "Ready for the next operation.";
 }
