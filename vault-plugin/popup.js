@@ -70,7 +70,7 @@ document.getElementById("encryptBtn").addEventListener("click", async function (
     const password = document.getElementById("passwordInput").value;
 
     if (!password && selectedFiles.length === 0) {
-        updateStatus("⚠️ Please select a file and enter a password.", "error");
+        updateStatus("⚠️ Please select a file and enter a password", "error");
         return;
     }
 
@@ -87,7 +87,7 @@ document.getElementById("encryptBtn").addEventListener("click", async function (
     for (let file of selectedFiles) {
         const encryptedBlob = await encryptFile(file, password);
         downloadFile(encryptedBlob, file.name + ".encrypted");
-        updateStatus(`File [${file.name}] encrypted successfully! ✅`, "success");
+        updateStatus(`${file.name} encrypted successfully! ✅`, "success");
     }
 
     // Clear fields after encryption
@@ -99,7 +99,7 @@ document.getElementById("decryptBtn").addEventListener("click", async function (
     const password = document.getElementById("passwordInput").value;
 
     if (!password && selectedFiles.length === 0) {
-        updateStatus("⚠️ Please select an encrypted file and enter the password.", "error");
+        updateStatus("⚠️ Please select an encrypted file and enter the password", "error");
         return;
     }
 
@@ -117,7 +117,7 @@ document.getElementById("decryptBtn").addEventListener("click", async function (
         for (let file of selectedFiles) {
             const decryptedBlob = await decryptFile(file, password);
             downloadFile(decryptedBlob, file.name.replace(".encrypted", ""));
-            updateStatus(`File [${file.name}] decrypted successfully! ✅`, "success");
+            updateStatus(`${file.name} decrypted successfully! ✅`, "success");
         }
 
         // Clear fields after decryption
@@ -131,8 +131,41 @@ document.getElementById("decryptBtn").addEventListener("click", async function (
 function updateStatus(message, type) {
     const status = document.getElementById("status");
     status.textContent = message;
-    status.style.color = type === "success" ? "lightgreen" : "red";
+    
+    // Common styles for status message
+    status.style.fontFamily = `"Times New Roman", serif`;
+    status.style.fontSize = "14px"; 
+    status.style.fontWeight = "600"; // Medium bold
+    status.style.padding = "10px";
+    status.style.borderRadius = "5px";
+    status.style.transition = "opacity 0.8s ease-in-out";
+    status.style.opacity = "1";
+    status.style.textAlign = "center";
+    status.style.width = "fit-content";
+    status.style.margin = "10px auto";
+    status.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.1)";
+
+    // Set color & background based on type
+    if (type === "success") {
+        status.style.color = "#155724"; // Dark Green Text
+        status.style.backgroundColor = "#D4EDDA"; // Light Green Background
+        status.style.border = "1px solid #C3E6CB";
+    } else if (type === "error") {
+        status.style.color = "#721C24"; // Dark Red Text
+        status.style.backgroundColor = "#F8D7DA"; // Light Red Background
+        status.style.border = "1px solid #F5C6CB";
+    } else {
+        status.style.color = "#004085"; // Dark Blue Text
+        status.style.backgroundColor = "#CCE5FF"; // Light Blue Background
+        status.style.border = "1px solid #B8DAFF";
+    }
+
+    // Auto-hide the status message after 5 seconds
+    setTimeout(() => {
+        status.style.opacity = "0";
+    }, 5000); // Changed from 3000ms (3 seconds) to 5000ms (5 seconds)
 }
+
 
 // Trigger file download
 function downloadFile(blob, fileName) {
@@ -150,5 +183,5 @@ function clearFields() {
     selectedFiles = [];
     document.getElementById("fileList").innerHTML = "";
     document.getElementById("passwordInput").value = "";
-    document.getElementById("status").textContent = "Ready for the next operation.";
+    //document.getElementById("status").textContent = "Ready for the next operation.";
 }
