@@ -79,7 +79,10 @@ function checkPasswordStrength(password) {
     if (/[@$!%*?&]/.test(password)) strength++; // At least one special character
 
     // Update UI based on password strength
-    if (strength === 1 || strength === 2) {
+    if (strength === 0) {
+        strengthMeter.style.backgroundColor = "";
+        strengthText.innerText = "";
+    } else if (strength === 1 || strength === 2) {
         strengthMeter.style.backgroundColor = "red";
         strengthText.innerText = "Weak ❌";
     } else if (strength === 3) {
