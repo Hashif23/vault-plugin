@@ -221,3 +221,66 @@ function clearFields() {
     document.getElementById("passwordInput").value = "";
     //document.getElementById("status").textContent = "Ready for the next operation.";
 }
+
+let popupAcknowledged = false;  // Flag to track if the popup has been acknowledged
+let wasLastInputHiddenChar = false;  // Track if the last input had hidden characters or spaces
+
+// Detect hidden characters or spaces in the password
+function showPopupAboveField(input, popup) {
+    const passwordValue = input.value;
+
+    // Check if hidden character (ㅤ) or space is introduced for the first time
+    const hasHiddenCharOrSpace = (passwordValue.includes('ㅤ') || passwordValue.includes(' ')) && !wasLastInputHiddenChar;
+
+    // Only show the popup if a new hidden character or space is detected and the popup hasn't been acknowledged
+    if (hasHiddenCharOrSpace && !popupAcknowledged) {
+        const inputRect = input.getBoundingClientRect();
+        const parentRect = input.parentElement.getBoundingClientRect(); // Reference the parent container
+        const popupWidth = popup.offsetWidth || 250; // Default width if not rendered yet
+        const popupHeight = popup.offsetHeight || 50; // Default height if not rendered yet
+
+        // Calculate the position relative to the parent container
+        const offsetX = inputRect.left - parentRect.left + (inputRect.width - popupWidth) / 2;
+        const offsetY = inputRect.top - parentRect.top - popupHeight - 10; // 10px above the field
+
+        // Set popup position
+        popup.style.left = `${offsetX}px`;
+        popup.style.top = `${offsetY}px`;
+
+        // Show the popup
+        popup.classList.add("visible");
+
+        // Add event listener to close the popup
+        const closeButton = popup.querySelector(".close-btn");
+        closeButton.removeEventListener("click", closePopup); // Remove previous event listeners to avoid duplication
+        closeButton.addEventListener("click", closePopup);
+    }
+
+    // Update tracking variables after checking for changes
+    wasLastInputHiddenChar = passwordValue.includes('ㅤ') || passwordValue.includes(' '); // Track if current input contains hidden characters or spaces
+}
+
+// Close the popup and mark it as acknowledged
+function closePopup() {
+    const popup = document.getElementById('hiddenCharPopup');
+    popup.classList.remove("visible"); // Hide the popup
+
+    // Mark the popup as acknowledged, so it won't show again
+    popupAcknowledged = true;
+}
+
+// Example to trigger the popup when focus is on the password input
+document.getElementById('passwordInput').addEventListener('input', function () {
+    const popup = document.getElementById('hiddenCharPopup');
+
+    // Only trigger the popup if it's not acknowledged yet and hidden characters or spaces are detected
+    if (!popupAcknowledged) {
+        showPopupAboveField(this, popup);
+    }
+});
+
+// Reset popupAcknowledged flag if the input is cleared or changes significantly
+document.getElementById('passwordInput').addEventListener('focus', function () {
+    // Reset popup acknowledgment when the field is focused again, allowing for a new check
+    popupAcknowledged = false;
+});

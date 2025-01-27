@@ -30,13 +30,20 @@
                 <div id="passwordStrength"></div>
                 <span id="strengthText"></span>
             </div>
+
+
             <div class="password-box">
                 <input type="password" id="passwordInput" placeholder="Enter a secure password">
                 <span class="toggle-icon" onclick="togglePassword()">
                     <i class="fas fa-eye" id="togglePasswordIcon"></i>
                 </span>
+                <!-- Hidden character popup directly in the password box -->
+                <div id="hiddenCharPopup" class="popup hidden">
+                    <button class="close-btn">X</button>
+                    <p>Hidden characters detected. Ensure this matches exactly during decryption to avoid data corruption or file loss ⚠️</p>
+                </div>
             </div>
-        </div>
+            
 
         <!-- Buttons -->
         <div class="button-group">
@@ -52,4 +59,4 @@
     <script src="drag.js"></script>
 
 </body>
-</html>
+</html> 
