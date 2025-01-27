@@ -284,3 +284,23 @@ document.getElementById('passwordInput').addEventListener('focus', function () {
     // Reset popup acknowledgment when the field is focused again, allowing for a new check
     popupAcknowledged = false;
 });
+
+// Hamburger Menu Toggle
+const hamburgerMenu = document.getElementById('hamburgerMenu');
+const dropdownMenu = document.getElementById('dropdownMenu');
+
+hamburgerMenu.addEventListener('click', () => {
+    dropdownMenu.classList.toggle('show'); // Toggling the 'show' class for animation
+});
+
+// Dark Theme Toggle
+document.getElementById('themeToggle').addEventListener('change', (event) => {
+    const isDark = event.target.checked;
+    if (isDark) {
+        document.body.style.backgroundColor = '#111';
+        document.body.style.color = '#fff';
+    } else {
+        document.body.style.backgroundColor = '';
+        document.body.style.color = '';
+    }
+});
