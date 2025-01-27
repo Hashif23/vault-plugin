@@ -320,3 +320,37 @@ document.getElementById('themeToggle').addEventListener('change', (event) => {
     }
 });
 
+// Adjust UI width using slider
+const widthSlider = document.getElementById('widthSlider');
+const widthValue = document.getElementById('widthValue');
+const container = document.getElementById('container'); // Assuming the container's ID is 'container'
+
+// Set the initial container width
+widthSlider.addEventListener('input', (e) => {
+    const newWidth = e.target.value;
+    container.style.width = newWidth + 'px';
+    widthValue.textContent = `${newWidth}px`;
+});
+
+// Adjust UI height using slider
+const heightSlider = document.getElementById('heightSlider');
+const heightValue = document.getElementById('heightValue');
+
+// Set the initial container height
+heightSlider.addEventListener('input', (e) => {
+    const newHeight = e.target.value;
+    container.style.height = newHeight + 'px';
+    heightValue.textContent = `${newHeight}px`;
+});
+
+// Toggle curved corners on the container
+const cornerToggle = document.getElementById('cornerToggle');
+
+// Apply/remove rounded corners on the container
+cornerToggle.addEventListener('change', () => {
+    if (cornerToggle.checked) {
+        container.style.borderRadius = '20px'; // Adjust the curve as needed
+    } else {
+        container.style.borderRadius = '0'; // Reset the curve
+    }
+});

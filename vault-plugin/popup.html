@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="container">
         <h1>🔐 Cloud Crypt</h1>
         <p class="subheading">Securely encrypt & decrypt your files with ease </p>
 
@@ -31,7 +31,6 @@
                 <span id="strengthText"></span>
             </div>
 
-
             <div class="password-box">
                 <input type="password" id="passwordInput" placeholder="Enter a secure password">
                 <span class="toggle-icon" onclick="togglePassword()">
@@ -43,41 +42,70 @@
                     <p>Hidden characters detected. Ensure this matches exactly during decryption to avoid data corruption or file loss ⚠️</p>
                 </div>
             </div>
-            
-            <div class="top-menu">
-                <div class="hamburger-menu" id="hamburgerMenu">
+
+            <!-- Hamburger Menu and Dropdown -->
+            <div class="top-menu" id="hamburgerMenu">
+                <div class="hamburger-menu">
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
-                </div>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <ul>
-                        <li>User Guide</li>
-                        <li>About</li>
-                        <li>Report</li>
-                        <li>
-                            Dark Theme <label class="switch">
-                                <input type="checkbox" id="themeToggle">
-                                <span class="slider round"></span>
-                            </label>
-                        </li>
-                    </ul>
                 </div>
             </div>
-              
 
-        <!-- Buttons -->
-        <div class="button-group">
-            <button id="encryptBtn" class="btn encrypt"><i class="fas fa-lock"></i> Encrypt</button>
-            <button id="decryptBtn" class="btn decrypt"><i class="fas fa-unlock"></i> Decrypt</button>
+            <!-- Dropdown Menu -->
+            <div class="dropdown-menu" id="dropdownMenu">
+                <ul>
+                    <li>User Guide</li>
+                    <li>About</li>
+                    <li>Report</li>
+                    
+                    <!-- Dark Theme Toggle -->
+                    <li>
+                        Dark Theme
+                        <label class="switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </li>
+                    
+                    <!-- UI Size Adjustment -->
+                    <li>
+                        UI Adjustment
+                        <div>
+                            <label for="widthSlider">Width: </label>
+                            <input type="range" id="widthSlider" min="250" max="800" value="400">
+                            <span id="widthValue">400px</span>
+                        </div>
+                        <div>
+                            <label for="heightSlider">Height: </label>
+                            <input type="range" id="heightSlider" min="250" max="800" value="400">
+                            <span id="heightValue">400px</span>
+                        </div>
+                    </li>
+                    
+                    <!-- Curved Corners Toggle -->
+                    <li>
+                        Curve Edges
+                        <label class="switch">
+                            <input type="checkbox" id="cornerToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button id="encryptBtn" class="btn encrypt"><i class="fas fa-lock"></i> Encrypt</button>
+                <button id="decryptBtn" class="btn decrypt"><i class="fas fa-unlock"></i> Decrypt</button>
+            </div>
+
+            <p id="status"></p>
         </div>
-
-        <p id="status"></p>
-    </div>
 
     <script src="popup.js"></script>
     <script src="functions.js"></script>
     <script src="drag.js"></script>
 
 </body>
-</html>                
+</html> 
