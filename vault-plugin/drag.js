@@ -66,7 +66,7 @@
     // Function to display file names with a remove button
     function displayFile(file) {
         let li = document.createElement("li");
-        li.innerHTML = `${file.name} <button class="remove-file" data-name="${file.name}">❌</button>`;
+        li.innerHTML = `${file.name} <button class="remove-file" data-name="${file.name}">X</button>`;
         fileList.appendChild(li);
 
         // Add event listener to remove the file
