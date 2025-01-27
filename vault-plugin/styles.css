@@ -339,6 +339,30 @@ input[type="file"] {
     transition: 0.6s;
 }
 
+/* Hamburger Menu */
+.top-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+}
+
+.hamburger-menu {
+    width: 25px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 15px;
+}
+
+.hamburger-menu .bar {
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: 0.6s;
+}
+
 /* Dropdown Menu */
 .dropdown-menu {
     position: absolute;
@@ -386,8 +410,10 @@ input[type="file"] {
     display: flex;
     align-items: center; /* Align text and switch vertically */
     justify-content: space-between; /* Distribute space between text and switch */
+    padding-left: 10px; /* To avoid the text being too close to the left edge */
 }
 
+/* Styling the switch */
 .switch {
     position: relative;
     display: inline-block;
@@ -430,8 +456,6 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(20px); /* Move the slider to the right */
 }
-
-/* Existing Hamburger Menu and Dropdown Menu styles remain unchanged */
 
 /* UI Size Adjustment (Slider) */
 .dropdown-menu li div {

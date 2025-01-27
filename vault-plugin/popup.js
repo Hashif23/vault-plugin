@@ -325,7 +325,7 @@ const widthSlider = document.getElementById('widthSlider');
 const widthValue = document.getElementById('widthValue');
 const container = document.getElementById('container'); // Assuming the container's ID is 'container'
 
-// Set the initial container width
+// Set the initial container width when the page loads based on the slider value
 widthSlider.addEventListener('input', (e) => {
     const newWidth = e.target.value;
     container.style.width = newWidth + 'px';
@@ -336,7 +336,7 @@ widthSlider.addEventListener('input', (e) => {
 const heightSlider = document.getElementById('heightSlider');
 const heightValue = document.getElementById('heightValue');
 
-// Set the initial container height
+// Set the initial container height when the page loads based on the slider value
 heightSlider.addEventListener('input', (e) => {
     const newHeight = e.target.value;
     container.style.height = newHeight + 'px';
@@ -354,3 +354,17 @@ cornerToggle.addEventListener('change', () => {
         container.style.borderRadius = '0'; // Reset the curve
     }
 });
+
+// Set the default values on page load (280px width and 470px height)
+window.onload = () => {
+    const initialWidth = 280; // Default width value
+    const initialHeight = 500; // Default height value
+
+    // Apply the default width and height to the container
+    container.style.width = initialWidth + 'px';
+    container.style.height = initialHeight + 'px';
+
+    // Display the default values on the page
+    widthValue.textContent = `${initialWidth}px`;
+    heightValue.textContent = `${initialHeight}px`;
+};
