@@ -289,8 +289,23 @@ document.getElementById('passwordInput').addEventListener('focus', function () {
 const hamburgerMenu = document.getElementById('hamburgerMenu');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
-hamburgerMenu.addEventListener('click', () => {
+// Toggle dropdown menu when hamburger icon is clicked
+hamburgerMenu.addEventListener('click', (event) => {
+    event.stopPropagation(); // Prevent the click event from propagating to the document
     dropdownMenu.classList.toggle('show'); // Toggling the 'show' class for animation
+});
+
+// Close the dropdown if the user clicks outside of it
+document.addEventListener('click', (event) => {
+    // Check if the click happened outside the dropdown and hamburger menu
+    if (!dropdownMenu.contains(event.target) && !hamburgerMenu.contains(event.target)) {
+        dropdownMenu.classList.remove('show'); // Close the dropdown if clicked outside
+    }
+});
+
+// Prevent clicks inside the dropdown from propagating and closing it
+dropdownMenu.addEventListener('click', (event) => {
+    event.stopPropagation(); // Prevent click event from closing the dropdown when clicking inside
 });
 
 // Dark Theme Toggle
@@ -304,3 +319,4 @@ document.getElementById('themeToggle').addEventListener('change', (event) => {
         document.body.style.color = '';
     }
 });
+
