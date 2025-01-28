@@ -1,51 +1,67 @@
-// AES-256 Encryption
-function encryptFile(fileContent, password) {
-    // Generate a random salt and IV
-    const salt = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit salt
-    const iv = CryptoJS.lib.WordArray.random(128 / 8);   // 128-bit IV
+// Derive a cryptographic key from a password using PBKDF2 for AES-256
+async function deriveKey(password, salt) {
+    const keyMaterial = await crypto.subtle.importKey(
+        "raw",
+        new TextEncoder().encode(password),
+        { name: "PBKDF2" },
+        false,
+        ["deriveKey"]
+    );
 
-    // Derive a 256-bit key from the password
-    const key = CryptoJS.PBKDF2(password, salt, {
-        keySize: 256 / 32, // 256-bit key
-        iterations: 100000, // Secure iteration count
-    });
-
-    // Encrypt the file content using AES-256 with the derived key and IV
-    const encrypted = CryptoJS.AES.encrypt(fileContent, key, {
-        iv: iv,
-    });
-
-    // Return the encrypted data along with the salt and IV
-    return {
-        ciphertext: encrypted.toString(),
-        salt: salt.toString(CryptoJS.enc.Base64),
-        iv: iv.toString(CryptoJS.enc.Base64),
-    };
+    return crypto.subtle.deriveKey(
+        {
+            name: "PBKDF2",
+            salt: salt,
+            iterations: 200000, // Increased iteration count for stronger protection
+            hash: "SHA-256",    // Secure hash algorithm
+        },
+        keyMaterial,
+        { name: "AES-GCM", length: 256 }, // Derive a 256-bit key for AES-GCM
+        false, // Do not export the key
+        ["encrypt", "decrypt"]
+    );
 }
 
+// Encrypt a file using AES-GCM with AES-256
+async function encryptFile(file, password) {
+    const iv = crypto.getRandomValues(new Uint8Array(12)); // 96-bit IV
+    const salt = crypto.getRandomValues(new Uint8Array(16)); // 128-bit salt
+    const key = await deriveKey(password, salt);
 
-// AES-256 Decryption
-function decryptFile(encryptedContent, password, saltBase64, ivBase64) {
+    const fileBuffer = await file.arrayBuffer();
+    const encryptedData = await crypto.subtle.encrypt(
+        { name: "AES-GCM", iv: iv },
+        key,
+        fileBuffer
+    );
+
+    // Concatenate salt + IV + encrypted data
+    const encryptedBlob = new Blob([salt, iv, new Uint8Array(encryptedData)], { type: "application/octet-stream" });
+    return encryptedBlob;
+}
+
+// Decrypt a file using AES-GCM with AES-256
+async function decryptFile(encryptedFile, password) {
+    const fileBuffer = await encryptedFile.arrayBuffer();
+
+    // Extract salt, IV, and encrypted data
+    const salt = new Uint8Array(fileBuffer.slice(0, 16)); // First 16 bytes
+    const iv = new Uint8Array(fileBuffer.slice(16, 28)); // Next 12 bytes
+    const encryptedData = fileBuffer.slice(28); // Remainder
+
+    const key = await deriveKey(password, salt);
+
     try {
-        // Decode the salt and IV from Base64
-        const salt = CryptoJS.enc.Base64.parse(saltBase64);
-        const iv = CryptoJS.enc.Base64.parse(ivBase64);
+        const decryptedData = await crypto.subtle.decrypt(
+            { name: "AES-GCM", iv: iv },
+            key,
+            encryptedData
+        );
 
-        // Derive the same 256-bit key using the password and salt
-        const key = CryptoJS.PBKDF2(password, salt, {
-            keySize: 256 / 32, // 256-bit key
-            iterations: 100000, // Must match encryption iteration count
-        });
-
-        // Decrypt the ciphertext
-        const bytes = CryptoJS.AES.decrypt(encryptedContent, key, {
-            iv: iv,
-        });
-
-        // Convert the decrypted content to UTF-8
-        return bytes.toString(CryptoJS.enc.Utf8);
+        return new Blob([decryptedData], { type: "application/octet-stream" });
     } catch (error) {
         console.error("Decryption error:", error);
-        return null;
+        throw new Error("Incorrect password or corrupted file");
     }
 }
+

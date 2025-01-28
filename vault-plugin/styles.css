@@ -491,3 +491,14 @@ body.dark-theme {
     color: #ffffff;
 }
 
+.upload {
+    background: #ffc107; /* Yellow background for distinction */
+    color: #212529; /* Dark text for contrast */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.upload:hover {
+    background: #e0a800; /* Darker yellow on hover */
+    transform: translateY(-2px);
+}
+
