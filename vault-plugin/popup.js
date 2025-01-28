@@ -285,11 +285,22 @@ document.getElementById('passwordInput').addEventListener('focus', function () {
     popupAcknowledged = false;
 });
 
-// Hamburger Menu Toggle
+// DOM elements
 const hamburgerMenu = document.getElementById('hamburgerMenu');
 const dropdownMenu = document.getElementById('dropdownMenu');
+const themeToggle = document.getElementById("themeToggle");
+const cornerToggle = document.getElementById("cornerToggle");
+const widthSlider = document.getElementById("widthSlider");
+const heightSlider = document.getElementById("heightSlider");
+const widthValue = document.getElementById("widthValue");
+const heightValue = document.getElementById("heightValue");
+const container = document.getElementById("container");
 
-// Toggle dropdown menu when hamburger icon is clicked
+// Default values for container size
+const defaultWidth = 250;
+const defaultHeight = 490;
+
+// Hamburger Menu Toggle
 hamburgerMenu.addEventListener('click', (event) => {
     event.stopPropagation(); // Prevent the click event from propagating to the document
     dropdownMenu.classList.toggle('show'); // Toggling the 'show' class for animation
@@ -297,7 +308,6 @@ hamburgerMenu.addEventListener('click', (event) => {
 
 // Close the dropdown if the user clicks outside of it
 document.addEventListener('click', (event) => {
-    // Check if the click happened outside the dropdown and hamburger menu
     if (!dropdownMenu.contains(event.target) && !hamburgerMenu.contains(event.target)) {
         dropdownMenu.classList.remove('show'); // Close the dropdown if clicked outside
     }
@@ -308,63 +318,70 @@ dropdownMenu.addEventListener('click', (event) => {
     event.stopPropagation(); // Prevent click event from closing the dropdown when clicking inside
 });
 
-// Dark Theme Toggle
-document.getElementById('themeToggle').addEventListener('change', (event) => {
-    const isDark = event.target.checked;
-    if (isDark) {
-        document.body.style.backgroundColor = '#111';
-        document.body.style.color = '#fff';
-    } else {
-        document.body.style.backgroundColor = '';
-        document.body.style.color = '';
-    }
-});
-
-// Adjust UI width using slider
-const widthSlider = document.getElementById('widthSlider');
-const widthValue = document.getElementById('widthValue');
-const container = document.getElementById('container'); // Assuming the container's ID is 'container'
-
-// Set the initial container width when the page loads based on the slider value
-widthSlider.addEventListener('input', (e) => {
-    const newWidth = e.target.value;
-    container.style.width = newWidth + 'px';
-    widthValue.textContent = `${newWidth}px`;
-});
-
-// Adjust UI height using slider
-const heightSlider = document.getElementById('heightSlider');
-const heightValue = document.getElementById('heightValue');
-
-// Set the initial container height when the page loads based on the slider value
-heightSlider.addEventListener('input', (e) => {
-    const newHeight = e.target.value;
-    container.style.height = newHeight + 'px';
-    heightValue.textContent = `${newHeight}px`;
-});
-
-// Toggle curved corners on the container
-const cornerToggle = document.getElementById('cornerToggle');
-
-// Apply/remove rounded corners on the container
-cornerToggle.addEventListener('change', () => {
-    if (cornerToggle.checked) {
-        container.style.borderRadius = '20px'; // Adjust the curve as needed
-    } else {
-        container.style.borderRadius = '0'; // Reset the curve
-    }
-});
-
-// Set the default values on page load (280px width and 470px height)
+// Apply saved settings or default values on page load
 window.onload = () => {
-    const initialWidth = 280; // Default width value
-    const initialHeight = 500; // Default height value
+    // Load saved theme from localStorage
+    if (localStorage.getItem("darkTheme") === "true") {
+        themeToggle.checked = true;
+        document.body.classList.add("dark-theme");
+    }
 
-    // Apply the default width and height to the container
+    // Load saved curve edge state from localStorage
+    if (localStorage.getItem("curveEdges") === "true") {
+        cornerToggle.checked = true;
+        container.style.borderRadius = "20px"; // Set the curve for the container
+    }
+
+    // Load saved container size from localStorage or use defaults
+    const savedWidth = localStorage.getItem("containerWidth");
+    const savedHeight = localStorage.getItem("containerHeight");
+
+    const initialWidth = savedWidth ? parseInt(savedWidth) : defaultWidth;
+    const initialHeight = savedHeight ? parseInt(savedHeight) : defaultHeight;
+
+    // Apply the width and height to the container
     container.style.width = initialWidth + 'px';
     container.style.height = initialHeight + 'px';
 
-    // Display the default values on the page
+    // Display the width and height values on the page
+    widthSlider.value = initialWidth;
+    heightSlider.value = initialHeight;
     widthValue.textContent = `${initialWidth}px`;
     heightValue.textContent = `${initialHeight}px`;
 };
+
+// Event listener for theme toggle
+themeToggle.addEventListener("change", function() {
+    if (themeToggle.checked) {
+        document.body.classList.add("dark-theme");
+        localStorage.setItem("darkTheme", "true");
+    } else {
+        document.body.classList.remove("dark-theme");
+        localStorage.setItem("darkTheme", "false");
+    }
+});
+
+// Event listener for curve edges toggle
+cornerToggle.addEventListener("change", function() {
+    if (cornerToggle.checked) {
+        container.style.borderRadius = "20px"; // Apply curved edges
+        localStorage.setItem("curveEdges", "true");
+    } else {
+        container.style.borderRadius = "0"; // Remove curve
+        localStorage.setItem("curveEdges", "false");
+    }
+});
+
+// Event listener for width slider
+widthSlider.addEventListener("input", function() {
+    widthValue.textContent = `${widthSlider.value}px`;
+    container.style.width = `${widthSlider.value}px`;
+    localStorage.setItem("containerWidth", widthSlider.value); // Save the width to localStorage
+});
+
+// Event listener for height slider
+heightSlider.addEventListener("input", function() {
+    heightValue.textContent = `${heightSlider.value}px`;
+    container.style.height = `${heightSlider.value}px`;
+    localStorage.setItem("containerHeight", heightSlider.value); // Save the height to localStorage
+});

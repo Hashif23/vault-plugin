@@ -52,54 +52,56 @@
                 </div>
             </div>
 
-            <!-- Dropdown Menu -->
-            <div class="dropdown-menu" id="dropdownMenu">
-                <ul>
-                    <li>User Guide</li>
-                    <li>About</li>
-                    <li>Report</li>
-                    
-                    <!-- Dark Theme Toggle -->
-                    <li>
-                        Dark Theme
-                        <label class="switch">
-                            <input type="checkbox" id="themeToggle">
-                            <span class="slider round"></span>
-                        </label>
-                    </li>
-                    
-                    <!-- UI Size Adjustment --> 
-                    <li>
-                        UI Adjustment
-                        <div>
-                            <label for="widthSlider">Width: </label>
-                            <input type="range" id="widthSlider" min="250" max="500" value="280">
-                            <span id="widthValue">280px</span>
-                        </div>
-                        <div>
-                            <label for="heightSlider">Height: </label>
-                            <input type="range" id="heightSlider" min="490" max="530" value="500">
-                            <span id="heightValue">500px</span>
-                        </div>
-                    </li>
-                    
-                    <!-- Curved Corners Toggle -->
-                    <li>
-                        Curve Edges
-                        <label class="switch">
-                            <input type="checkbox" id="cornerToggle">
-                            <span class="slider round"></span>
-                        </label>
-                    </li>
-                </ul>   
+   <!-- Dropdown Menu -->
+   <div class="dropdown-menu" id="dropdownMenu">
+    <ul>
+        <li>User Guide</li>
+        <li>About</li>
+        <li>Report</li>
+        
+        <!-- Dark Theme Toggle -->
+        <li class="toggle-item">
+            <span>Dark Theme</span>
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+            </label>
+        </li>
+        
+        <!-- UI Size Adjustment --> 
+        <li class="toggle-item">
+            <span>UI Adjustment</span>
+            <div>
+                <label for="widthSlider">Width: </label>
+                <input type="range" id="widthSlider" min="250" max="500" value="280">
+                <span id="widthValue">280px</span>
             </div>
+            <div>
+                <label for="heightSlider">Height: </label>
+                <input type="range" id="heightSlider" min="490" max="530" value="500">
+                <span id="heightValue">500px</span>
+            </div>
+        </li> 
+        
+        <!-- Curved Corners Toggle -->
+        <li class="toggle-item">
+            <span>Curve Edges</span>
+            <label class="switch">
+                <input type="checkbox" id="cornerToggle">
+                <span class="slider round"></span>
+            </label>
+        </li> 
+    </ul>     
+</div>
+
+   
 
             <!-- Buttons -->
             <div class="button-group">
                 <button id="encryptBtn" class="btn encrypt"><i class="fas fa-lock"></i> Encrypt</button>
                 <button id="decryptBtn" class="btn decrypt"><i class="fas fa-unlock"></i> Decrypt</button>
             </div>
-
+  
             <p id="status"></p> 
         </div>
 
@@ -107,5 +109,5 @@
     <script src="functions.js"></script>
     <script src="drag.js"></script>
 
-</body> 
-</html>    
+</body>      
+</html>     

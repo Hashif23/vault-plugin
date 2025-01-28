@@ -346,25 +346,32 @@ input[type="file"] {
 }
 
 .dropdown-menu li {
-    margin-bottom: 15px; /* Add spacing between items */
-    color: rgb(255, 255, 255); /* Text color */
+    margin-bottom: 15px;
+    color: rgb(255, 255, 255);
     font-size: 14px;
     cursor: pointer;
+    transition: background-color 0.3s ease, padding 0.3s ease; /* Add transition for padding */
+    display: flex; /* Added flex to align content */
+    justify-content: space-between; /* Space between label and switch */
+    align-items: center; /* Vertically align items */
+    gap: 10px; /* Space between text and switch */
 }
 
 .dropdown-menu li:hover {
-    background: rgba(90, 90, 90, 0.452); /* Hover background */
+    background: rgba(90, 90, 90, 0.452);
     border-radius: 6px;
-    padding: 8px;
+    padding: 5px; /* Smooth hover effect with padding */
 }
 
 /* Dark Theme and Curve Edges Toggles */
 .dark-theme-toggle, .curve-edge-toggle {
     display: flex;
-    align-items: center; /* Align text and switch vertically */
-    justify-content: space-between;
-    width: 100%; /* Use full width for alignment */
-    gap: 10px; /* Space between text and switch */
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Ensure there’s space between text and switch */
+    gap: 10px; /* Space between the label/text and the switch */
+    width: 100%; /* Full width to prevent pushing items up */
+    padding: 10px 0; /* Add vertical padding to provide spacing */
+    box-sizing: border-box; /* Ensure padding doesn't mess with layout */
 }
 
 /* Styling the Switch */
@@ -446,3 +453,10 @@ input:checked + .slider:before {
     height: 400px; /* Default height */
     transition: width 0.3s ease, height 0.3s ease; /* Smooth resizing */
 }
+
+/* Add the dark theme styles */
+body.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
+}
+
