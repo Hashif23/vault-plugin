@@ -252,7 +252,7 @@ input[type="file"] {
 
 .popup {
     position: absolute;
-    background: rgba(0, 0, 0, 0.555);
+    background: rgba(0, 0, 0, 0.781);
     color: white;
     padding: 10px 15px;
     border-radius: 6px;

@@ -298,7 +298,7 @@ const container = document.getElementById("container");
 
 // Default values for container size
 const defaultWidth = 250;
-const defaultHeight = 490;
+const defaultHeight = 506;
 
 // Hamburger Menu Toggle
 hamburgerMenu.addEventListener('click', (event) => {
