@@ -383,7 +383,7 @@ input[type="file"] {
 }
 
 .switch input {
-    display: none; /* Hide input */
+    display: none; /* Hide the actual checkbox input */
 }
 
 .slider {
@@ -405,7 +405,7 @@ input[type="file"] {
     width: 14px;
     left: 3px;
     bottom: 3px;
-    background-color: rgb(255, 49, 49); /* Red toggle */
+    background-color: #ff3131; /* Red toggle */
     transition: 0.4s;
     border-radius: 50%;
 }
@@ -438,10 +438,41 @@ input:checked + .slider:before {
     color: white; /* Label text color */
 }
 
+/* Slider Styling to match the switch color */
 #widthSlider, #heightSlider {
+    -webkit-appearance: none; /* Remove default appearance */
+    appearance: none;
     width: 100%; /* Full width for sliders */
+    height: 10px; /* Height for sliders */
+    background-color: #cc2ef33f; /* Greenish background to match the switch background */
+    border-radius: 20px; /* Rounded edges for the slider */
+    transition: 0.4s; /* Smooth transition */
+    outline: none; /* Remove outline on focus */
 }
 
+/* Styling the slider handle */
+#widthSlider::-webkit-slider-thumb, 
+#heightSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background-color: #31cfff; /* Red handle */
+    border-radius: 50%;
+    transition: 0.4s; /* Smooth transition for thumb */ 
+}
+
+/* When sliders are being interacted with */
+#widthSlider:focus, #heightSlider:focus {
+    outline: none; /* Remove default focus outline */
+}
+
+/* When sliders are moved (checked state) */
+#widthSlider:checked, #heightSlider:checked {
+    background-color: #1b1b1b; /* Dark background when checked */
+}
+
+/* Adjust value labels for width/height sliders */
 #widthValue, #heightValue {
     font-size: 12px; /* Smaller font size for values */
     color: lightgray; /* Subtle color for value display */
