@@ -5,15 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Crypt - Secure File Encryption</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
 </head>
 <body>
-
     <div class="container" id="container">
         <h1>🔐 Cloud Crypt</h1>
-        <p class="subheading">Securely encrypt & decrypt your files with ease </p>
+        <p class="subheading">Securely encrypt & decrypt your files with ease</p>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        <!-- Combined File Upload and Drag & Drop -->
+        <!-- Hamburger Menu -->
+        <div class="top-menu" id="hamburgerMenu">
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu" id="dropdownMenu">
+            <ul>
+                <li>User Guide</li>
+                <li>About</li>
+                <li>Report</li>
+                <li class="toggle-item"> 
+                    <span>Dark Theme</span>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </li>
+                <li class="toggle-item">
+                    <span>Google Drive Account</span>
+                    <button id="manageDriveAccount" class="btn small-btn">Add / Switch</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- File Upload & Drag & Drop -->
         <div id="drop-area" class="file-upload">
             <label for="fileInput" id="fileLabel" class="file-label">
                 <i class="fas fa-upload"></i> Select Files or Drag & Drop Here
@@ -23,94 +51,39 @@
 
         <ul id="fileList"></ul>
 
-        <!-- Password Input with Show/Hide Toggle -->
+        <!-- Password Input -->
         <div class="password-input">
             <label for="passwordInput"><i class="fas fa-key"></i> Enter Password:</label>
             <div id="passwordStrengthContainer">
                 <div id="passwordStrength"></div>
                 <span id="strengthText"></span>
             </div>
-
             <div class="password-box">
                 <input type="password" id="passwordInput" placeholder="Enter a secure password">
-                <span class="toggle-icon" onclick="togglePassword()">
-                    <i class="fas fa-eye" id="togglePasswordIcon"></i>
+                <span class="toggle-icon" id="togglePasswordIcon">
+                    <i class="fas fa-eye"></i>
                 </span>
-                <!-- Hidden character popup directly in the password box -->
-                <div id="hiddenCharPopup" class="popup hidden">
-                    <button class="close-btn">X</button>
-                    <p>Hidden characters detected.! Ensure this matches exactly during decryption to avoid data corruption or file loss ⚠️</p>
-                </div>
             </div>
-
-            <!-- Hamburger Menu and Dropdown -->
-            <div class="top-menu" id="hamburgerMenu">
-                <div class="hamburger-menu">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </div>
-
-   <!-- Dropdown Menu -->
-   <div class="dropdown-menu" id="dropdownMenu">
-    <ul>
-        <li>User Guide</li>
-        <li>About</li>
-        <li>Report</li>
-        
-        <!-- Dark Theme Toggle -->
-        <li class="toggle-item">
-            <span>Dark Theme</span>
-            <label class="switch">
-                <input type="checkbox" id="themeToggle">
-                <span class="slider round"></span>
-            </label>
-        </li>
-        
-        <!-- UI Size Adjustment --> 
-        <li class="toggle-item">
-            <span>UI Adjustment</span>
-            <div>
-                <label for="widthSlider">Width: </label>
-                <input type="range" id="widthSlider" min="250" max="500" value="350">
-                <span id="widthValue">350px</span>
-            </div>
-            <div>
-                <label for="heightSlider">Height: </label>
-                <input type="range" id="heightSlider" min="490" max="530" value="500">
-                <span id="heightValue">500px</span>
-            </div>
-        </li> 
-        
-        <!-- Curved Corners Toggle -->
-        <li class="toggle-item">
-            <span>Curve Edges</span>
-            <label class="switch">
-                <input type="checkbox" id="cornerToggle">
-                <span class="slider round"></span>
-            </label>
-        </li> 
-    </ul>     
-</div>
-
-            <!-- Buttons -->
-            <div class="button-group">
-                <button id="encryptBtn" class="btn encrypt"><i class="fas fa-lock"></i> Encrypt</button>
-                <button id="uploadBtn" class="btn upload"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
-                <button id="decryptBtn" class="btn decrypt"><i class="fas fa-unlock"></i> Decrypt</button>
-            </div>
-            
-  
-            <p id="status"></p> 
         </div>
- 
+
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button id="encryptBtn" class="btn encrypt"><i class="fas fa-lock"></i> Encrypt</button>
+            <button id="uploadBtnr" class="btn upload"><i class="fas fa-cloud-upload-alt"></i> Uploads</button>
+            <button id="decryptBtn" class="btn decrypt"><i class="fas fa-unlock"></i> Decrypt</button>
+        </div>
+        
+        <p id="status"></p> 
+    </div>
+
     <script src="popup.js"></script>
-    <script src="functions.js"></script>
-    <script src="drag.js"></script> 
-    <script src="upload.js"></script>
+    <script src="Dropbox-sdk.min.js"></script>
     <script src="crypto.js"></script>
     <script src="drop.js"></script>
-
-</body>          
+    <script src="endecrypt.js"></script>
+    <script src="passfield.js"></script>
+    <script src="dropdown.js"></script>
+    <script src="background.js"></script>
+</body>       
 </html>      

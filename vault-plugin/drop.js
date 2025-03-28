@@ -1,102 +1,87 @@
-// DOM elements
-const hamburgerMenu = document.getElementById('hamburgerMenu');
-const dropdownMenu = document.getElementById('dropdownMenu');
-const themeToggle = document.getElementById("themeToggle");
-const cornerToggle = document.getElementById("cornerToggle");
-const widthSlider = document.getElementById("widthSlider");
-const heightSlider = document.getElementById("heightSlider");
-const widthValue = document.getElementById("widthValue");
-const heightValue = document.getElementById("heightValue");
-const container = document.getElementById("container");
+// 🌐 Select Elements
+const dropArea = document.getElementById("drop-area");
+const fileInput = document.getElementById("fileInput");
+const fileList = document.getElementById("fileList");
 
-// Default values for container size
-const defaultWidth = 350;
-const defaultHeight = 506;
+let selectedFiles = []; // Array to store selected files
 
-// Hamburger Menu Toggle
-hamburgerMenu.addEventListener('click', (event) => {
-    event.stopPropagation(); // Prevent the click event from propagating to the document
-    dropdownMenu.classList.toggle('show'); // Toggling the 'show' class for animation
+// 🖱️ Drag & Drop File Handling
+dropArea.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    dropArea.classList.add("drag-over");
 });
 
-// Close the dropdown if the user clicks outside of it
-document.addEventListener('click', (event) => {
-    if (!dropdownMenu.contains(event.target) && !hamburgerMenu.contains(event.target)) {
-        dropdownMenu.classList.remove('show'); // Close the dropdown if clicked outside
-    }
+dropArea.addEventListener("dragleave", () => {
+    dropArea.classList.remove("drag-over");
 });
 
-// Prevent clicks inside the dropdown from propagating and closing it
-dropdownMenu.addEventListener('click', (event) => {
-    event.stopPropagation(); // Prevent click event from closing the dropdown when clicking inside
+dropArea.addEventListener("drop", (event) => {
+    event.preventDefault();
+    dropArea.classList.remove("drag-over");
+    handleFiles(event.dataTransfer.files);
 });
 
-// Apply saved settings or default values on page load
-window.onload = () => {
-    // Load saved theme from localStorage
-    if (localStorage.getItem("darkTheme") === "true") {
-        themeToggle.checked = true;
-        document.body.classList.add("dark-theme");
-    }
-
-    // Load saved curve edge state from localStorage
-    if (localStorage.getItem("curveEdges") === "true") {
-        cornerToggle.checked = true;
-        container.style.borderRadius = "20px"; // Set the curve for the container
-    }
-
-    // Load saved container size from localStorage or use defaults
-    const savedWidth = localStorage.getItem("containerWidth");
-    const savedHeight = localStorage.getItem("containerHeight");
-
-    const initialWidth = savedWidth ? parseInt(savedWidth) : defaultWidth;
-    const initialHeight = savedHeight ? parseInt(savedHeight) : defaultHeight;
-
-    // Apply the width and height to the container
-    container.style.width = initialWidth + 'px';
-    container.style.height = initialHeight + 'px';
-
-    // Display the width and height values on the page
-    widthSlider.value = initialWidth;
-    heightSlider.value = initialHeight;
-    widthValue.textContent = `${initialWidth}px`;
-    heightValue.textContent = `${initialHeight}px`;
-};
-
-// Event listener for theme toggle
-themeToggle.addEventListener("change", function() {
-    if (themeToggle.checked) {
-        document.body.classList.add("dark-theme");
-        localStorage.setItem("darkTheme", "true");
-    } else {
-        document.body.classList.remove("dark-theme");
-        localStorage.setItem("darkTheme", "false");
-    }
+// 📂 File Input Selection
+fileInput.addEventListener("change", (event) => {
+    handleFiles(event.target.files);
 });
 
-// Event listener for curve edges toggle
-cornerToggle.addEventListener("change", function() {
-    if (cornerToggle.checked) {
-        container.style.borderRadius = "20px"; // Apply curved edges
-        localStorage.setItem("curveEdges", "true");
-    } else {
-        container.style.borderRadius = "0"; // Remove curve
-        localStorage.setItem("curveEdges", "false");
-    }
-});
+// 🔄 Handle Selected Files & Prevent Duplicates
+function handleFiles(files) {
+    Array.from(files).forEach(file => {
+        if (!selectedFiles.some(f => f.name === file.name && f.size === file.size && f.lastModified === file.lastModified)) {
+            selectedFiles.push(file);
+        }
+    });
 
-// Event listener for width slider
-widthSlider.addEventListener("input", function() {
-    widthValue.textContent = `${widthSlider.value}px`;
-    container.style.width = `${widthSlider.value}px`;
-    localStorage.setItem("containerWidth", widthSlider.value); // Save the width to localStorage
-});
-
-// Event listener for height slider
-heightSlider.addEventListener("input", function() {
-    heightValue.textContent = `${heightSlider.value}px`;
-    container.style.height = `${heightSlider.value}px`;
-    localStorage.setItem("containerHeight", heightSlider.value); // Save the height to localStorage
-});
+    renderFileList();
+}
 
 
+// ❌ Remove File from List
+function removeFile(index) {
+    selectedFiles.splice(index, 1);
+    renderFileList();
+}
+
+// 🧹 Clear Selected Files
+function clearSelectedFiles() {
+    selectedFiles = [];
+    renderFileList();
+}
+
+
+
+function renderFileList() {
+    fileList.innerHTML = ""; // Clear previous list
+
+    selectedFiles.forEach((file, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span>${file.name}</span> 
+            <button class="remove-file" data-index="${index}">X</button>
+        `;
+
+        fileList.appendChild(li);
+    });
+
+    // Attach event listeners to remove buttons
+    document.querySelectorAll(".remove-file").forEach(button => {
+        button.addEventListener("click", function () {
+            const index = parseInt(this.getAttribute("data-index"), 10);
+            removeFile(index);
+        });
+    });
+
+    adjustContainerHeight();
+}
+
+// 🏗 Adjust Container Height Based on Content
+function adjustContainerHeight() {
+    const container = document.getElementById("container");
+    const baseHeight = 450;  // Default height
+    const fileListHeight = fileList.scrollHeight; // Dynamic file list height
+
+    // Set height with smooth transition
+    container.style.height = `${baseHeight + Math.min(fileListHeight, 150)}px`;
+}

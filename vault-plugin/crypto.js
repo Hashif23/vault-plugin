@@ -64,4 +64,3 @@ async function decryptFile(encryptedFile, password) {
         throw new Error("Incorrect password or corrupted file");
     }
 }
-

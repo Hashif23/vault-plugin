@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Cloud Crypt",
+  "version": "1.8.8",
+  "description": "Securely encrypt and decrypt files, and upload them to Google Drive.",
+  
+  "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+          "16": "icon16.png",
+          "48": "icon48.png",
+          "128": "icon128.png"
+      }
+  },
+  
+  "permissions": [
+      "identity",
+      "storage",
+      "https://www.dropbox.com/*",
+      "https://*.dropboxapi.com/*"
+  ],
+  "host_permissions": [
+      "https://www.dropbox.com/*",
+      "https://*.dropboxapi.com/*"
+  ],
+  "oauth2": {
+      "client_id": "1jn0gzqxuk5n7dn",
+      "response_type": "token",
+      "scopes": [
+          "https://www.dropbox.com/oauth2/authorize",
+            "files.metadata.read",
+            "files.metadata.write",
+            "files.content.read",
+            "files.content.write"
+      ]
+  },
+  "background": {
+   "scripts": ["Dropbox-sdk.min.js", "background.js"],
+   "persistent": false
+    }
+}
